@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Abel:wght@400;500;600;700&family=Ysabeau+SC:wght@400;500;600;700&display=swap");
+
+* {
+  font-family: "Abel", sans-serif !important;
+}
+
+.nav-active-dark {
+  background-color: #103135  !important;
+  border-radius: 10px;
+}
+
+.nav-active-side {
+  background-color: #6a6ac847  !important;
+}
+
+.nav-active-light {
+  background-color: #e5e5e5 !important;
+}
+
+.nav-logo {
+  cursor: pointer;
+}
+
+.nav-title {
+  font-weight: 800;
+  margin-left: 18px;
+}
+
+.logo {
+  text-align: center;
+  cursor: pointer;
+}
+.tags {
+  overflow: auto;
+}
+
+.tags::-webkit-scrollbar {
+  display: none;
+}
+
+.css-h4y409-MuiList-root {
+  padding-top: 0px !important;
+}
+
+// .video-card:hover {
+//   background-color: red !important;
+// }
+
+.video-card:hover .play-button-overlay {
+  display: block !important;
+}
+
+.select .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.select .MuiOutlinedInput-notchedOutline .selected {
+  border: none !important;
+}
+
+.Mui-selected {
+  background-color: rgb(207 207 207 / 16%) !important;
+}
+
+.css-5op5p-MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within, .css-5op5p-MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+
+
+
+.hero {
+  /* width: 100%; */
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(47, 48, 50, 0.9)),
+    url("../public/assets/images/bg.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.highlight-row {
+  background-color: #0e2022 !important;
+  color: white;
+}
+
+
+
+main {
+  width: 100px !important;
+}
+
+.MuiDataGrid-detailPanel  {
+height: auto !important;
+}
+
+.css-1rtad1{
+  height: 7px !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #0e2022;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: linear-gradient(0deg, rgba(255, 255, 0, 0.416) 47.6%, black 99.23%);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background-color: #0e2022;
+  border-radius: 10px;
+}
+
+.green-text {
+  color: rgb(0, 195, 140);
+  font-weight: bold;
+}
+
+.red-text {
+  color: rgb(249, 77, 92);
+  font-weight: bold;
+}
+
+.link-text {
+  color: #1990ff;
+  font-weight: bold;
+}
+
+.channel-name{
+  font-size: 16px;
+}
+
+
+.css-h4y409-MuiList-root { 
+  padding-bottom: 0px !important;
+}
+
+.css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px #121212 inset !important;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
