@@ -6,7 +6,7 @@ export const image_url = (path: string) => {
   }
 };
 
-export const baseURL = "http://134.209.209.81:3000";
+export const baseURL = "https://134.209.209.81:3000";
 // export const baseURL = "https://dsh.kznhks.com";
 
 export const endpoints = {
