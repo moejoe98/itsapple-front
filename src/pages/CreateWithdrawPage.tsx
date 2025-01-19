@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@mui/material";
 import CreateWithdrawForm from "../components/createWithdrawPage/CreateWithdrawForm";
 
@@ -7,6 +6,7 @@ export const CreateWithdrawPage = ({
   loading,
   balance,
   chains,
+  handleSendOtp,
 }: any) => {
   return (
     <Box sx={{ width: "100%", padding: "40px" }}>
@@ -15,6 +15,7 @@ export const CreateWithdrawPage = ({
         loading={loading}
         balance={balance}
         chains={chains}
+        handleSendOtp={handleSendOtp}
       />
     </Box>
   );

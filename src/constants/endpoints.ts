@@ -6,10 +6,13 @@ export const image_url = (path: string) => {
   }
 };
 
+// export const baseURL = "https://127.0.0.1:3000";
 export const baseURL = "https://134.209.209.81:3000";
+
 // export const baseURL = "https://dsh.kznhks.com";
 
 export const endpoints = {
+  send_otp: `${baseURL}/otp/generate`,
   get_withdraws: `${baseURL}/dashboard/withdraw-list`,
   create_withdraws: `${baseURL}/dashboard/withdraw`,
   login: `${baseURL}/auth/login`,

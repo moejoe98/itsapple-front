@@ -43,6 +43,24 @@ const initialState: WithdrawState = {
   chains: [],
 };
 
+export const sendOtpAsync = createAsyncThunk(
+  "withdraws/sendOtp",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get(endpoints.send_otp);
+      console.log("response", response);
+
+      if (response.status !== 200) {
+        throw new Error(response.data?.message || "Failed to send OTP");
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data.message || error.message);
+    }
+  }
+);
+
 export const withdrawSlice = createSlice({
   name: "Withdraws",
   initialState,
@@ -63,6 +81,18 @@ export const withdrawSlice = createSlice({
       state.balance = payload.balance;
       state.chains = payload.chains.filter((chain) => chain.enabled); // Only enabled chains
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(sendOtpAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(sendOtpAsync.fulfilled, (state) => {
+        state.status = "data";
+      })
+      .addCase(sendOtpAsync.rejected, (state) => {
+        state.status = "error";
+      });
   },
 });
 

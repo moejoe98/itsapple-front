@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   fetchWithdrawDataAsync,
   createWithdrawAsync,
+  sendOtpAsync,
 } from "../redux/withdrawSlice";
 import { CreateWithdrawPage } from "../pages/CreateWithdrawPage";
 import { ToastContainer, toast } from "react-toastify";
@@ -48,6 +49,26 @@ function CreateWithdrawContainer() {
     }
   };
 
+  const handleSendOtp = async () => {
+    try {
+      await dispatch(sendOtpAsync()).unwrap();
+      toast.success("OTP sent successfully!!", {
+        position: "top-right",
+      });
+      return true;
+    } catch (error: any) {
+      toast.error(error || "Failed to send OTP.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return false;
+    }
+  };
+
   if (!chains.length) return <Loader />;
   else
     return (
@@ -57,6 +78,7 @@ function CreateWithdrawContainer() {
           loading={loading}
           balance={balance}
           chains={chains}
+          handleSendOtp={handleSendOtp}
         />
         <ToastContainer />
       </>

@@ -6,7 +6,7 @@ import { fetchWithdrawsAsync } from "../redux/withdrawSlice";
 import { WithdrawsPage } from "../pages/WithdrawsPage";
 function WithdrawListContainer() {
   const dispatch = useAppDispatch();
-  const { withdraws } = useAppSelector((state) => state.Withdraws);
+  const { withdraws, status } = useAppSelector((state) => state.Withdraws);
 
   const getWithdrawList = async () => {
     try {
@@ -24,8 +24,9 @@ function WithdrawListContainer() {
     refreshData();
   }, [dispatch]);
 
-  if (!withdraws.length) return <Loader />;
-  else return <WithdrawsPage refresh={refreshData} withdraws={withdraws} />;
+  if (status === "loading") return <Loader />;
+
+  return <WithdrawsPage refresh={refreshData} withdraws={withdraws} />;
 }
 
 export default WithdrawListContainer;

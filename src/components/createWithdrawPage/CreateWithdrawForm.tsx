@@ -30,6 +30,7 @@ interface CreateWithdrawFormProps {
   loading: boolean;
   balance: number;
   chains: Chain[];
+  handleSendOtp: () => Promise<boolean>;
 }
 
 const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
@@ -37,6 +38,7 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
   loading,
   balance,
   chains,
+  handleSendOtp,
 }) => {
   const [formData, setFormData] = useState<any>({
     clientPhone: "",
@@ -51,6 +53,8 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
   });
 
   const [open, setOpen] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpError, setOtpError] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -152,6 +156,7 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
       givenAmount: "",
       commission: 0,
       chain: "",
+      otp: "",
     });
   }, [balance]);
 
@@ -163,7 +168,23 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Box width="80%" p={3} boxShadow={3} bgcolor="background.paper">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            width: {
+              xs: "100%",
+              sm: "80%",
+            },
+            p: {
+              xs: 0,
+              md: 3,
+            },
+            boxShadow: 3,
+            bgcolor: "background.paper",
+          }}
+        >
           <form onSubmit={handleOpenDialog}>
             <Typography variant="h4" gutterBottom>
               Create New Withdraw
@@ -273,7 +294,20 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
                       color="textSecondary"
                       gutterBottom
                     >
-                      Should Receive {totalAmount.toFixed(2)}
+                      Should Receive{" "}
+                      <Typography
+                        variant="caption"
+                        color="textSecondary"
+                        sx={{ cursor: "pointer", textDecoration: "underline" }}
+                        onClick={() =>
+                          setFormData((prevData: any) => ({
+                            ...prevData,
+                            receivedAmount: totalAmount.toFixed(2),
+                          }))
+                        }
+                      >
+                        {totalAmount.toFixed(2)}
+                      </Typography>
                     </Typography>
                   </Box>
                   <TextField
@@ -311,21 +345,83 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
                   />
                 </Grid>
               )}
+              {otpSent && !otpError && (
+                <Grid sx={{ mt: 2 }} item xs={12} sm={6}>
+                  <TextField
+                    required
+                    label="Enter OTP"
+                    name="otp"
+                    value={formData.otp || ""}
+                    onChange={(e) =>
+                      setFormData((prevData: any) => ({
+                        ...prevData,
+                        otp: e.target.value,
+                      }))
+                    }
+                    fullWidth
+                    sx={{ mt: 2 }}
+                  />
+                </Grid>
+              )}
 
+              {/* {!otpSent && ( */}
               <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  fullWidth
-                  disabled={loading}
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
                 >
-                  {loading ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Submit"
-                  )}
-                </Button>
+                  {/* Send OTP Button */}
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={async () => {
+                        try {
+                          const response = await handleSendOtp();
+
+                          if (response) {
+                            setOtpSent(true);
+                            setOtpError(false);
+                          }
+                        } catch {
+                          setOtpError(true);
+                          setOtpSent(false);
+                        }
+                      }}
+                      disabled={otpSent && !otpError}
+                    >
+                      {otpSent && !otpError ? "OTP Sent" : "Send OTP"}
+                    </Button>
+
+                    {otpError && (
+                      <Typography color="error" variant="caption" mt={1}>
+                        Failed to send OTP. Please try again.
+                      </Typography>
+                    )}
+                  </Box>
+
+                  {/* Submit Button */}
+                  <Box>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      disabled={loading || !otpSent || otpError}
+                    >
+                      {loading ? (
+                        <CircularProgress size={24} color="inherit" />
+                      ) : (
+                        "Submit"
+                      )}
+                    </Button>
+                  </Box>
+                </Box>
               </Grid>
             </Grid>
           </form>
