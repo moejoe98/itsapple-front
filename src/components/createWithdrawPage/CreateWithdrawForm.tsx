@@ -328,7 +328,7 @@ const CreateWithdrawForm: React.FC<CreateWithdrawFormProps> = ({
               )}
 
               {formData.direction === "SELL" && (
-                <Grid item xs={12} sm={6}>
+                <Grid item sx={{ mt: 4 }} xs={12} sm={6}>
                   <TextField
                     label="Given Amount"
                     name="givenAmount"
